@@ -26,3 +26,6 @@ Instead of trying to decide which of your folders your bookmark is better suited
 
 ###Images
 The icon is owned by mitopencourseware http://www.flickr.com/photos/mitopencourseware/4482555552/sizes/o/in/photostream/
+
+###Layout
+The stylesheet and layout is based upon this isotope demo: http://isotope.metafizzy.co/demos/combination-filters.html
