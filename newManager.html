@@ -1,0 +1,147 @@
+<!--
+03 - changing span to pre
+
+-->
+
+<script type="text/javascript" src="files/js/jquery.min-1.8.2.js"></script>
+
+
+<!--jQuery UI for all buttons and dialog boxes-->
+<script src="files/js/jquery-ui-1.10.1.custom.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="files/themes/greenButtons/jquery.ui.theme.css" rel="stylesheet" type="text/css">
+<link href="files/themes/base/jquery-ui.css" rel="stylesheet" type="text/css">
+
+
+<script src="files/js/otherTag-it.js" type="text/javascript" charset="utf-8"></script>
+<script src="files/js/tag-it.js" type="text/javascript" charset="utf-8"></script> 
+
+
+
+
+  <link href="files/css/jquery.tagitManager.css" rel="stylesheet" type="text/css">  
+<!-- <script src="files/js/jquery.contextmenu.r2.js" type="text/javascript"></script> -->
+<script src="files/js/async.min.js" type="text/javascript"></script>
+
+<!-- For the Key Simulator -->
+<script type="text/javascript" src="files/js/jquery.simulate.js"></script>
+<script type="text/javascript" src="files/js/bililiteRange.js"></script>
+<script type="text/javascript" src="files/js/jquery.simulate.ext.js"></script>
+<script type="text/javascript" src="files/js/jquery.simulate.key-sequence.js"></script>
+
+
+<script type="text/javascript" src="files/js/jquery.tagcloud.js"></script>
+
+<link rel="stylesheet" href="files/css/isotopeScript.edited.css"> 
+
+<!doctype html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8" />
+  <title>BookmarkNests -- Dynamic Nested Tags - put it (every)where you want.</title>
+  
+  
+  
+
+
+  
+  <!-- scripts at bottom of page -->
+  
+<style>
+
+  #popup{
+	height:'100%';
+  }
+  </style>
+
+
+</head>
+<body class="demos ">
+  
+<nav id="site-nav" >
+    <h1>Tags</h1>
+<section class="options" >
+
+    
+ <div id='tag_choice' class="tag_choice options">
+
+      <ul class="filter option-set clearfix choices" data-filter-group="color"> 
+
+        
+      </ul>
+    </div>
+	  
+	  
+	  </section>
+    
+  </nav> <!-- #site-nav -->
+  
+  <section id="content">
+    
+      <h1>BookmarkNests</h1> <h2>Dynamic Nested Tags - put it (every)where you want.</h2>
+    
+<div style='float:right'>
+<p>To go to page, click on link. To edit bookmark, click 'Edit bookmark' and then the link.</p>
+<input type='button' value='Turn On Edit Mode' id='editPosition'>  <button id='close'>Close Manager</button>
+Help will trigger the div that contains the statement above.
+</div>
+
+<section>
+			<div>
+				<input type="text" name="search" id="search" value="" placeholder="Start typing..." autocomplete="off" /> 
+				<a href="#" id="showAll">Show all</a>
+			</div>
+		</section>
+		
+		<p id="noMatches" style="display:none;">No matches found</p>
+		<p id="tooShort" style="display:none;">At least two letters needed</p>
+
+<section class="options" class="clearfix combo-filters">
+  
+  <h3>Filters</h3>
+
+  
+   
+	
+	<!-- 	THE UNDOERS-->	
+	
+	<div id='tags_chosen' class="tags_chosen options">
+
+      <ul class="filter option-set clearfix chosen" data-filter-group="color2"> 
+
+        
+      </ul>
+    </div>
+  
+
+</section> <!-- #options -->
+
+<div style='clear:left'></div>
+
+<div id="container" class="iso-container clearfix greenButtons">
+
+
+</div> <!-- #container -->
+
+  </section> <!-- #content -->
+
+  
+  <div id="popup" style="display: none;">	
+  </div>
+  
+  <div id="deleteWarning" style="display: none;">	
+  </div>
+  
+  <div id="cloud" style="display: none;">  </div>
+  
+</body>
+</html>
+
+<!-- <script src="files/js/jquery.min-1.8.2.js"></script> -->
+<script src="files/js/jquery.isotope.min.js"></script>
+
+
+
+<script src="universalVar.js" type="text/javascript"></script>
+<script src="newManagerContent.js"></script>
+<script src="common.js" type="text/javascript"></script>  

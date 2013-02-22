@@ -1,0 +1,63 @@
+chrome.browserAction.onClicked.addListener(function(tab) {
+	
+//This is to put the manager one tab to the right
+var myIndex = tab.index;
+chrome.tabs.create({index : myIndex + 1, url: "mainMenu.html"});
+
+});
+
+//"incognito": "spanning"
+/*
+obj currentWin = chrome.windows.getCurrent();
+numTabs = currentWin.tabs.length;
+*/
+
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tabState){
+	console.log('on update',changeInfo.url);
+	console.log('using tab state',tabState.url);
+	
+		var store = dbTransaction(store_name, 'readonly');
+		var index = store.index('url');
+		var find = index.get(tabState.url);
+		find.onsuccess = function(event) {
+	//	console.log("The url is: ", event.target.result.url)
+			//so
+			if (event.target.result != null){
+				console.log("Got it");
+				chrome.browserAction.setBadgeText({text: 'YES',tabId: tabId });
+			}
+			else{
+				console.log("Nope");
+				chrome.browserAction.setBadgeText({text: 'NO',tabId: tabId });
+			}
+		};
+
+
+});
+
+chrome.tabs.onActivated.addListener(function(activeInfo){
+	var id = activeInfo.tabId;
+	console.log(id);
+
+	chrome.tabs.get(id, function(info) {
+		//console.log(response.farewell);
+		console.log('active changed',info.url);
+
+		var store = dbTransaction(store_name, 'readonly');
+		var index = store.index('url');
+		var find = index.get(info.url);
+		find.onsuccess = function(event) {
+	//	console.log("The url is: ", event.target.result.url)
+			//so
+			if (event.target.result != null){
+				console.log("Got it");
+				chrome.browserAction.setBadgeText({text: 'YES',tabId: id });
+			}
+			else{
+				console.log("Nope");
+				chrome.browserAction.setBadgeText({text: 'NO',tabId: id });
+			}
+		};
+	});
+
+});

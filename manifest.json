@@ -1,0 +1,16 @@
+{
+  "name": "BookmarkNests",
+  "version": "1.6.1",
+  "manifest_version": 2,
+  "description": "A bookmark manager with tagging. Now you can put your bookmarks in more than one location.",
+  "browser_action": {
+    "default_icon": "files/images/icon.png"
+  },
+  "permissions": [
+    "bookmarks", "tabs"
+  ],
+  "background": {
+    "scripts": ["universalVar.js","common.js","background.js"],
+	"persistent": true
+  }
+}
