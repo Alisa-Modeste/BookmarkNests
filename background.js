@@ -6,11 +6,6 @@ chrome.tabs.create({index : myIndex + 1, url: "mainMenu.html"});
 
 });
 
-//"incognito": "spanning"
-/*
-obj currentWin = chrome.windows.getCurrent();
-numTabs = currentWin.tabs.length;
-*/
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tabState){
 	console.log('on update',changeInfo.url);
@@ -20,8 +15,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tabState){
 		var index = store.index('url');
 		var find = index.get(tabState.url);
 		find.onsuccess = function(event) {
-	//	console.log("The url is: ", event.target.result.url)
-			//so
+
 			if (event.target.result != null){
 				console.log("Got it");
 				chrome.browserAction.setBadgeText({text: 'YES',tabId: tabId });
@@ -40,15 +34,13 @@ chrome.tabs.onActivated.addListener(function(activeInfo){
 	console.log(id);
 
 	chrome.tabs.get(id, function(info) {
-		//console.log(response.farewell);
 		console.log('active changed',info.url);
 
 		var store = dbTransaction(store_name, 'readonly');
 		var index = store.index('url');
 		var find = index.get(info.url);
 		find.onsuccess = function(event) {
-	//	console.log("The url is: ", event.target.result.url)
-			//so
+
 			if (event.target.result != null){
 				console.log("Got it");
 				chrome.browserAction.setBadgeText({text: 'YES',tabId: id });

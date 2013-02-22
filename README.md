@@ -1,7 +1,7 @@
 BookmarkNests
 =============
 
-A bookmark manager with nested tagging
+A bookmark manager with nested tagging.
 
 About
 -----
@@ -9,12 +9,12 @@ This is a Google Chrome extension that is written in Javascript. It uses indexed
 
 Instead of trying to decide which of your folders your bookmark is better suited for, put it in both "folders." BookmarkNests is capable of "dynamic folders." When searching through your bookmarks, click the first tag, or "folder," then pick one of the sub-tags.
 
-####The current version is ideal for smaller number of bookmarks. (i.e closer to 100 than 5000).
+####The current version is ideal for a smaller number of bookmarks. (i.e closer to 100 than 5000).
 
 ##Acknowledgements
 ###Functions
 - traverseBookmarks() found in importingBookmarks.js. I used serg's function to traverse Chrome's bookmarks. http://stackoverflow.com/a/5571850/1689437
-- I used "ISOTOPE LIVE SEARCH PROTO" by Charlie Perrins as a starting place to get the search part of the manager filter setup. http://charlieperrins.com/isotope-live-search/
+- I used "ISOTOPE LIVE SEARCH PROTO" by Charlie Perrins as a starting place to get the search part of the manager's filter setup. http://charlieperrins.com/isotope-live-search/
 
 ###Plugins
 - jQuery UI (http://jqueryui.com/)

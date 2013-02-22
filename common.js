@@ -13,8 +13,7 @@ return store;
 }
 
 function initDb() {
-	var request = indexedDB.open("bookmarkDB", 1);  //having a problem upgrading at least with indexes
-	//the above made a new objectStore. I don't have access to the old data.
+	var request = indexedDB.open("bookmarkDB", 1);  
 	console.log("I got past the request");
     request.onsuccess = function (evt) {
         db = this.result;           
@@ -107,10 +106,10 @@ function tagCount(){
 			for(var i =0;i<cursor.value.tags.length;i++){
 
 				if(tagCounter[0] != null){
-				for (var j=0;j<tagCounter.length;j++){//the current array of objects
+				for (var j=0;j<tagCounter.length;j++){
 					
 					if(cursor.value.tags[i] == tagCounter[j].name){
-						//tagCounter[j].name = tagCounter[j].name + ' and me';
+
 						tagCounter[j].count = tagCounter[j].count +1;
 						
 						break;
@@ -183,16 +182,10 @@ $(function () {
   $('#cloud a').on('click', function(e) {
 
 	e.preventDefault();
-
-	
-	console.log('this is',$(this).text());
-
-	console.log(e);
 	
 	//add text input
 	var gg = $(this).text();
-	console.log('this is what is this',$(this).text());
-	//$('.ui-widget-content').simulate("key-sequence", {sequence: gg});
+
 	$('.ui-widget-content .ui-autocomplete-input').simulate("key-sequence", {sequence: gg + ' '});
 	});
 	$('#cloud button').on('click', function(e) {

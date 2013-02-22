@@ -80,7 +80,7 @@ function importer(bookmarkObj){
 
 
 
-						//might want to change that to if( bookmarkParents2[0].title != ""){
+
 			if(bookmarkParents2[0] != null && bookmarkParents2[0].title != ""){
 					
 	
@@ -163,12 +163,7 @@ function inserter(count){
 						var store = dbTransaction(store_name, 'readwrite');
 						var req;
 						req = store.add(bookmarkInfo);
-						/*req.onsuccess = function(event) {
-							console.log("Insertion in DB successful.",track,'of',count);
-							track++;
 
-							callback();
-						};*/
 						req.onsuccess = function(event) {
 							if(item[1].title == 'Bookmarks bar' || item[1].title == 'Other bookmarks'){
 								track++;
