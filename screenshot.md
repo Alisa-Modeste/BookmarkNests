@@ -1,5 +1,13 @@
 #Current Look
 
-The tag 'CUS1166' was clicked.
+Here is the content with no filters
 
-![Alt text](layout.png)
+![Content in manager](layout.png)
+
+The tag 'subfolder' was clicked.
+
+![With content filtered](layout-subfolder.png)
+
+With the tag 'subfolder' still active and searching for 'net'.
+
+![With content filtered 2](layout-search.png)
