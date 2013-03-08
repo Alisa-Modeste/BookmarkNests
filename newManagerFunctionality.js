@@ -186,6 +186,7 @@ function isotopeSearch(kwd,selector){
 						if(misses[i] == matches[j]){
 							//remove from misses
 							misses.splice(i, 1);
+							break;
 						}
 					}
 					
