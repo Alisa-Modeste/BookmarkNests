@@ -179,9 +179,21 @@ function isotopeSearch(kwd,selector){
                         }
                 });
 
+				
+				//make sure both the title and url don't contain search terms
+				for (var i=0;i< misses.length;i++){
+					for (var j =0;j<matches.length;j++){
+						if(misses[i] == matches[j]){
+							//remove from misses
+							misses.splice(i, 1);
+						}
+					}
+					
+				}
+
 				// add appropriate class and call isotope.filter
-                $(misses).addClass('miss');
-            
+				$(misses).addClass('miss');
+			
 			updateTags();
                 
 				if(typeof(selector) !== 'undefined'){
@@ -365,7 +377,7 @@ $('#container a').on('click', function(e) {
 	//append the form and its values - title and tags
 	$("#popup").children().remove();
 	
-	$("#popup").append("<form id='form1'><input type='hidden' class='key' id='" + record.id + "' /><p><label>Title2 </label><input name='title' id='title' value='" + record.title + "' tabindex='0'/></p><p><label style='display:inline'>Tags2 </label> <ul class='myTagsB' id='tagBar'></ul></p><p><button id='tags' type='button'>View Current Tags </button></p><p><button type='submit' id='update'>Save</button> <button id='delete'>Delete</button> <button type='reset' id='cancel'>Cancel</button></p></form> ");
+	$("#popup").append("<form id='form1'><input type='hidden' class='key' id='" + record.id + "' /><p><label>Title </label><input name='title' id='title' value='" + record.title + "' tabindex='0'/></p><p><label style='display:inline'>Tags </label> <ul class='myTagsB' id='tagBar'></ul></p><p><button id='tags' type='button'>View Current Tags </button></p><p><button type='submit' id='update'>Save</button> <button id='delete'>Delete</button> <button type='reset' id='cancel'>Cancel</button></p></form> ");
 	console.log("I should be on - editor");
 
 	for(var i in record.tags){
