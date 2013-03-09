@@ -361,6 +361,7 @@ $('#container a').on('click', function(e) {
 	width:'500px',
 	dialogClass: 'editor',
 	stack: true,
+	title: 'Edit Bookmark',
 	autoOpen: false
 	
 	});
