@@ -95,7 +95,7 @@ $chosen.isotope({ filter: '.clicked' });
 	}
 
 	  if(typeof(selector) != 'string'){
-		chosenTags.push(':not(.miss):not(.hidden)');
+		chosenTags.push(':not(.miss):not(.hidden):not(.deleted)');
 	  }
 	  selector = chosenTags.join('');
       $container.isotope({ filter: selector });
@@ -203,7 +203,7 @@ function isotopeSearch(kwd,selector){
 						$container.isotope({ filter: selector });
 				}
 				else{
-						  $container.isotope({ filter: ':not(.miss):not(.hidden)' }); 
+						   $container.isotope({ filter: ':not(.miss):not(.hidden):not(.deleted)' }); 
 				}
 				
                 if (matches.length == 0) {
@@ -218,7 +218,7 @@ function isotopeSearch(kwd,selector){
 						$container.isotope({ filter: selector });
 				}
 				else{
-						  $container.isotope({ filter: '.item' }); 
+						  $container.isotope({ filter: '.item:not(.deleted)' }); 
 				}
 				if(kwd.length == 1) {
                         $('#tooShort').show(); // respond to user
@@ -525,10 +525,10 @@ function updateBookmark(bookmarkObj){
 						
 					}	
 	
-	$(".myTagsA").tagitRows(editOff);
-	
-	
-	$('#container #_'+bookmarkObj.id  + ' .title').text(bookmarkObj.title);
+					$(".myTagsA").tagitRows(editOff);
+					
+					
+					$('#container #_'+bookmarkObj.id  + ' .title').text(bookmarkObj.title);
 					closePopup()
 						}
 						
@@ -573,14 +573,15 @@ function deleteBookmark(id,title){
 			req.onsuccess = function(event) {
 				console.log('It\'s gone.');
 				$("#deleteWarning").dialog('close');
-				$('#container #_'+id).addClass('hidden');
+				
+				$('#container #_'+id).addClass('deleted');
 		//filter. check to see if selector or isoFilter is defined
 		if(typeof(selector) !== 'undefined'){
 					 // var selector = isoFilters2.join('');
 						$container.isotope({ filter: selector });
 				}
 				else{
-						  $container.isotope({ filter: ':not(.miss):not(.hidden)' }); 
+						  $container.isotope({ filter: ':not(.miss):not(.hidden):not(.deleted)' }); 
 				}
 			}
 			break;
