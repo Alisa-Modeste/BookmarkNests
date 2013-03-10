@@ -50,6 +50,7 @@ console.log(e);
 	
 	case "save":
 		saveBookmark(e);
+		//prefillTitle(e);
 		break;
 	
 	case "cancel":
@@ -135,10 +136,16 @@ function addUpdateBookmarkForm(bookmarkObj){
 								bookmarkObj.id = event.target.result.id;
 								bookmarkObj.url = event.target.result.url;
 								
-
+								/*var store = dbTransaction(store_name, 'readwrite');
+								var req;
+								req = store.put(bookmarkObj);
+								req.onsuccess = function(event) {*/
 
 									callback(null,bookmarkObj);
-
+								/*};
+								req.onerror = function() {
+								  console.log("addPublication error", this.error);
+								};*/
 								
 							}
 						}
@@ -147,12 +154,20 @@ function addUpdateBookmarkForm(bookmarkObj){
 							//var id = -1
 							//var bookmarkInfo = {id: -1, title: item[0].title, url: item[0].url, dateAdded: item[0].dateAdded, tags: [item[1].title]}
 							
-
+								/*var store = dbTransaction(store_name, 'readwrite');
+								var req;
+								req = store.put(bookmarkObj);
+								req.onsuccess = function(event) {*/
 
 									callback(null,bookmarkObj);
+								/*};
+								req.onerror = function() {
+								  console.log("addPublication error", this.error);
+								};*/
 						}
 						
 
+					//	callback(null, bookmarkObj);
 
 				   }
 				   find.onerror = function(event) {
@@ -220,7 +235,7 @@ function prefillForm(){
 		
 		var currentIndex = obj.index;
 	
-	chrome.tabs.query({index : currentIndex - 1}, function findObj(focusedObj){
+	chrome.tabs.query({index : currentIndex - 1, currentWindow : true}, function findObj(focusedObj){
 		
 		var originalTitle = focusedObj[0].title;
 		url = focusedObj[0].url;

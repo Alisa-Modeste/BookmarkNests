@@ -33,7 +33,7 @@ return store;
 }
 
 function initDb() {
-	var request = indexedDB.open("bookmarkDB", 1);  
+	var request = indexedDB.open("bookmarkDB", 1);
 	console.log("I got past the request");
     request.onsuccess = function (evt) {
         db = this.result;           
@@ -64,26 +64,6 @@ function initDb() {
 }
 
 
-
-
-
-function dbReading(store_name){
-		var tx = db.transaction(store_name, 'readonly');
-			var store = tx.objectStore(store_name);
-		store.openCursor().onsuccess = function(event) {
-			var cursor = event.target.result;
-			if (cursor) {
-				
-				console.log("Key:", cursor.key,"Title:", cursor.value.title, "Tags:", cursor.value.tags, "URL", cursor.value.url,"Date Added", cursor.value.dateAdded);
-				cursor.continue();
-		    }
-		    else {
-				alert("No more entries!");
-				console.log(cursor);
-			}
-		}
-}
-	
 
 //$.unique didn't always work. Even with sorting
 function uniqueArray(repetitiveArray){
@@ -129,7 +109,7 @@ function tagCount(){
 				for (var j=0;j<tagCounter.length;j++){
 					
 					if(cursor.value.tags[i] == tagCounter[j].name){
-
+						
 						tagCounter[j].count = tagCounter[j].count +1;
 						
 						break;
@@ -205,7 +185,7 @@ $(function () {
 	
 	//add text input
 	var gg = $(this).text();
-
+	
 	$('.ui-widget-content .ui-autocomplete-input').simulate("key-sequence", {sequence: gg + ' '});
 	});
 	$('#cloud button').on('click', function(e) {
