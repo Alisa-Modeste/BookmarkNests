@@ -138,7 +138,7 @@ function inserter(item, finished){
 		function(callback){
 		//does url exist?
 			
-			var store = dbTransaction(store_name, 'readonly');
+			var store = dbTransaction(store_name, 'readwrite');
 			var index = store.index('url');
 			var find = index.get(item[0].url);
 			find.onsuccess = function(event) {
@@ -151,72 +151,58 @@ function inserter(item, finished){
 
 					tempTags = uniqueArray(tempTags);
 					var bookmarkInfo = {id: event.target.result.id, title: event.target.result.title, url: item[0].url, dateAdded: item[0].dateAdded, tags: tempTags};
+
+					var req = store.put(bookmarkInfo);
+
+					req.onsuccess = function(event) {
+						//console.log("Insertion in DB successful");
+						
+						if(item[1].title == 'Bookmarks bar' || item[1].title == 'Other bookmarks'){
+							track++;
+						}
+						
+						console.log("Insertion in DB successful - update.",track,'of',count);
+
+						callback();
+					};
+
+					req.onerror = function() {
+					  console.log("addPublication error", this.error);
+					};
 				}
 				else{
 					//add
-					var bookmarkInfo = {id: -1, title: item[0].title, url: item[0].url, dateAdded: item[0].dateAdded, tags: [item[1].title]};
+					var bookmarkInfo = {title: item[0].title, url: item[0].url, dateAdded: item[0].dateAdded, tags: [item[1].title]};
 					
 					bookmarkInfo.title = bookmarkInfo.title.replace(/[<>]/g, '');
+
+					var req = store.add(bookmarkInfo);
+
+					req.onsuccess = function(event) {
+						if(item[1].title == 'Bookmarks bar' || item[1].title == 'Other bookmarks'){
+							track++;
+						}
+						
+						console.log("Insertion in DB successful - new.",track,'of',count);
+
+						callback();
+					};
+					req.onerror = function() {
+					  console.log("addPublication error", this.error);
+					 // inserter(item, finished)
+					  console.log("Do it again")
+					};
 				}
 				
 
-				callback(null, bookmarkInfo);
+				callback();
 
 		   }
 		   find.onerror = function(event) {
 				console.log("Error:",event);
 
 		   }
-		},
-		function(bookmarkInfo, callback){
-		//edit db
-		
-			if(bookmarkInfo.id == -1){
-				//add
-				delete bookmarkInfo.id;
-				
-				var store = dbTransaction(store_name, 'readwrite');
-				var req;
-				req = store.add(bookmarkInfo);
-
-				req.onsuccess = function(event) {
-					if(item[1].title == 'Bookmarks bar' || item[1].title == 'Other bookmarks'){
-						track++;
-					}
-					
-					console.log("Insertion in DB successful - new.",track,'of',count);
-
-					callback();
-				};
-				req.onerror = function() {
-				  console.log("addPublication error", this.error);
-				  inserter(item, finished)
-				  console.log("Do it again")
-				};
-			}
-			else{
-				//put
-				var store = dbTransaction(store_name, 'readwrite');
-				var req = store.put(bookmarkInfo);
-				req.onsuccess = function(event) {
-					//console.log("Insertion in DB successful");
-					
-					if(item[1].title == 'Bookmarks bar' || item[1].title == 'Other bookmarks'){
-						track++;
-					}
-					
-					console.log("Insertion in DB successful - update.",track,'of',count);
-
-					callback();
-				};
-				req.onerror = function() {
-				  console.log("addPublication error", this.error);
-				};
-			}
-
-				
-			}
-
+		}
 	], function (err) {
 	//on to the next one, if applicable
 		console.log("Finished round");
