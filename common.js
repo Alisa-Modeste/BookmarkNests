@@ -33,7 +33,7 @@ return store;
 }
 
 function initDb() {
-	var request = indexedDB.open("bookmarkDB", 1);
+	var request = indexedDB.open("bookmarkDBtest", 1);
 	console.log("I got past the request");
     request.onsuccess = function (evt) {
         db = this.result;           
@@ -56,7 +56,7 @@ function initDb() {
         var objectStore = evt.currentTarget.result.createObjectStore(store_name, { keyPath: "id", autoIncrement: true });
         //                                       ,true);
  
-        //objectStore.createIndex("tags", "tags", { unique: false, multientry: true });
+        objectStore.createIndex("tags", "tags", { unique: false, multientry: true });
 		
 		objectStore.createIndex("url", "url", { unique: true });
 	

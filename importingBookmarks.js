@@ -137,7 +137,7 @@ function inserter(count){
 
 	run = false;
 	setTimeout(function() {
-		async.forEachSeries(bookmarkArr, function(item, finished){
+		async.forEach(bookmarkArr, function(item, finished){
 			//item = [bookmarkObj, bookmarkParent]
 			
 			async.waterfall([
@@ -148,6 +148,7 @@ function inserter(count){
 					var index = store.index('url');
 					var find = index.get(item[0].url);
 					find.onsuccess = function(event) {
+						console.log("Input successful");
 
 						if (event.target.result != null){
 							//updating
@@ -169,7 +170,7 @@ function inserter(count){
 
 				   }
 				   find.onerror = function(event) {
-						cnsole.log("Error:",event);
+						console.log("Error:",event);
 
 				   }
 				},
