@@ -24,7 +24,7 @@ var firstLoad = true;
 function printBookmarks(nextSet){
 	//cursor loop
 	var store = dbTransaction(store_name, 'readonly');
-	var vacant = true;
+	var vacant = firstLoad;
 	var allTagsLinks = [];
 	var allTagsNames = [];
 	var count =0;
@@ -57,7 +57,7 @@ function printBookmarks(nextSet){
 		console.log('prev bottom',openKeyRange.lower)
 	}
 
-	$("#container").empty();
+	
 
 
 	store.openCursor(openKeyRange, direction).onsuccess = function(event) {
@@ -66,7 +66,11 @@ function printBookmarks(nextSet){
 		var cursor = event.target.result;
 
 		console.log(count)
-		if (cursor && count < 5) {
+		if (cursor && count < 8) {
+			//this is the first time through and there are bookmarks
+			if (count == 0) {
+				$("#container").empty();
+			}
 		
 			vacant = false;
 
@@ -161,52 +165,6 @@ function printBookmarks(nextSet){
 			var keys = getKeys();
 			addPageLinks(keys);
 
-
-
-			//===============================testing inside printBookmark
-	//cursor loop
-
-	
-	var store = dbTransaction(store_name, 'readonly');
-
-	//var key = window.location.search.match(/\d+/) || 0
-	var key = 36;
-
-		var openKeyRange = IDBKeyRange.upperBound(key, true);
-		var direction = "prev";
-
-
-
-	//store.openCursor(openKeyRange, direction).onsuccess = function(event) {
-	store.openCursor(openKeyRange, direction).onsuccess = function(event) {
-		var cursor = event.target.result;
-		console.log("third cursor.key is",cursor.key)
-		console.log(count)
-		if (cursor) {
-
-		}
-	}
-
-	var store = dbTransaction(store_name, 'readonly');
-
-	//var key = window.location.search.match(/\d+/) || 0
-	var key = 35;
-
-		var openKeyRange = IDBKeyRange.upperBound(key, true);
-		var direction = "next";
-
-
-
-	//store.openCursor(openKeyRange, direction).onsuccess = function(event) {
-	store.openCursor(openKeyRange, direction).onsuccess = function(event) {
-		var cursor = event.target.result;
-		console.log("fourth cursor.key is",cursor.key)
-		console.log(count)
-		if (cursor) {
-
-		}
-	}
-
 		}
 
 	}
@@ -230,8 +188,8 @@ function getKeys(){
 function addPageLinks(keys){
 	//$(".links").html("<p>First link" + keys[0] + "</p>")
 
-	$(".links").html("<div><a href='?key=" + keys[0] + "' id='previous'>Previous page</a></div>")
-	$(".links").append("<div><a href='?key=" + keys[1] + "' id='next'>Next page</a></div>")
+	$(".links").html("<div><a href='#' id='previous'>Previous page</a></div>")
+	$(".links").append("<div><a href='#' id='next'>Next page</a></div>")
 }
 
 

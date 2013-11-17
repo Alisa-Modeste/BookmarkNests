@@ -2,3 +2,5 @@
 - Bookmarks aren't being updated or updated properly (they either only save the first tags or write over the one they had already with the new one)
 
 - Error handling
+
+- Err. Searching the db, especially partials
