@@ -40,7 +40,7 @@ function initDb() {
 	console.log("the request was successful. db is", db);	
 
 	if(typeof(printBookmarks) == 'function'){
-		printBookmarks();
+		printBookmarks(true);
 	}
 
 

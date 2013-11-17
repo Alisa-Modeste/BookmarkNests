@@ -19,7 +19,7 @@
 */
 
 //display the bookmarks
-function printBookmarks(){
+function printBookmarks(nextSet){
 	//cursor loop
 	var store = dbTransaction(store_name, 'readonly');
 	var vacant = true;
@@ -32,8 +32,19 @@ function printBookmarks(){
 
 	// keys greater than key
 	//var lowerBoundOpenKeyRange = IDBKeyRange.lowerBound(key, true);
-	var lowerBoundOpenKeyRange = IDBKeyRange.lowerBound(key);
-	store.openCursor(lowerBoundOpenKeyRange).onsuccess = function(event) {
+	//var lowerBoundOpenKeyRange = IDBKeyRange.lowerBound(key);
+
+	if (nextSet){
+		// keys greater than key
+		var openKeyRange = IDBKeyRange.lowerBound(key, true);
+		var direction = "next";
+	}
+	else {
+		var openKeyRange = IDBKeyRange.upperBound(key, true);
+		var direction = "prev";
+	}
+
+	store.openCursor(openKeyRange, direction).onsuccess = function(event) {
 		
 		var cursor = event.target.result;
 
@@ -114,11 +125,22 @@ function printBookmarks(){
 
 		appendScript('newManagerFunctionality.js');
 
+		addPageLinks();
+
 		}
 
 	}
 
 
+}
+
+function getKeys(){
+	var previousKey = $("#container a:first-child").attr('id').slice(1)
+	var nextKey = $("#container a:last-child").attr('id').slice(1)
+}
+
+function addPageLinks(){
+	$(".links").html("<p>First link</p>")
 }
 
 
