@@ -31,6 +31,7 @@ function printBookmarks(nextSet){
 
 	//var key = window.location.search.match(/\d+/) || 0
 	var keys = getKeys();
+	console.log("keys", getKeys())
 	//key = parseInt(keys[0])
 
 	// keys greater than key
@@ -38,29 +39,34 @@ function printBookmarks(nextSet){
 	//var lowerBoundOpenKeyRange = IDBKeyRange.lowerBound(key);
 
 	if (nextSet){
-		var key = keys[1]
+		var key = parseInt(keys[1])
 
 		// keys greater than key
 		var openKeyRange = IDBKeyRange.lowerBound(key, true);
 		var direction = "next";
+
 		
 	}
 	else {
-		var key = keys[0]
+		var key = parseInt(keys[0])
 
 		var openKeyRange = IDBKeyRange.upperBound(key, true);
 		var direction = "prev";
+
+		console.log('prev top',openKeyRange.upper)
+		console.log('prev bottom',openKeyRange.lower)
 	}
 
 	$("#container").empty();
 
+
 	store.openCursor(openKeyRange, direction).onsuccess = function(event) {
+	//store.openCursor(null, direction).onsuccess = function(event) {
 		
 		var cursor = event.target.result;
 
-
-		
-		if (cursor && count < 3) {
+		console.log(count)
+		if (cursor && count < 5) {
 		
 			vacant = false;
 
@@ -93,7 +99,12 @@ function printBookmarks(nextSet){
 			}
 
 			console.log('count is now',count);
+			console.log("cursor.key is",cursor.key)
 			count++;
+
+			if (count == 2){
+				console.log("second cursor.key is",cursor.key)
+			}
 			
 			cursor.continue();
 			
@@ -150,9 +161,57 @@ function printBookmarks(nextSet){
 			var keys = getKeys();
 			addPageLinks(keys);
 
+
+
+			//===============================testing inside printBookmark
+	//cursor loop
+
+	
+	var store = dbTransaction(store_name, 'readonly');
+
+	//var key = window.location.search.match(/\d+/) || 0
+	var key = 36;
+
+		var openKeyRange = IDBKeyRange.upperBound(key, true);
+		var direction = "prev";
+
+
+
+	//store.openCursor(openKeyRange, direction).onsuccess = function(event) {
+	store.openCursor(openKeyRange, direction).onsuccess = function(event) {
+		var cursor = event.target.result;
+		console.log("third cursor.key is",cursor.key)
+		console.log(count)
+		if (cursor) {
+
+		}
+	}
+
+	var store = dbTransaction(store_name, 'readonly');
+
+	//var key = window.location.search.match(/\d+/) || 0
+	var key = 35;
+
+		var openKeyRange = IDBKeyRange.upperBound(key, true);
+		var direction = "next";
+
+
+
+	//store.openCursor(openKeyRange, direction).onsuccess = function(event) {
+	store.openCursor(openKeyRange, direction).onsuccess = function(event) {
+		var cursor = event.target.result;
+		console.log("fourth cursor.key is",cursor.key)
+		console.log(count)
+		if (cursor) {
+
+		}
+	}
+
 		}
 
 	}
+
+
 
 
 }
@@ -164,6 +223,7 @@ function getKeys(){
 	var previousKey = $("#container a:first-child").attr('id').slice(1)
 	var nextKey = $("#container a:last-child").attr('id').slice(1)
 
+	console.log("the [previousKey, nextKey]",previousKey, nextKey)
 	return [previousKey, nextKey]
 }
 
