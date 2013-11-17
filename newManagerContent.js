@@ -49,7 +49,7 @@ function printBookmarks(nextSet){
 		var cursor = event.target.result;
 
 		
-		if (cursor && count < 50) {
+		if (cursor && count < 10) {
 		
 			vacant = false;
 
@@ -125,7 +125,8 @@ function printBookmarks(nextSet){
 
 		appendScript('newManagerFunctionality.js');
 
-		addPageLinks();
+		var keys = getKeys();
+		addPageLinks(keys);
 
 		}
 
@@ -137,10 +138,15 @@ function printBookmarks(nextSet){
 function getKeys(){
 	var previousKey = $("#container a:first-child").attr('id').slice(1)
 	var nextKey = $("#container a:last-child").attr('id').slice(1)
+
+	return [previousKey, nextKey]
 }
 
-function addPageLinks(){
-	$(".links").html("<p>First link</p>")
+function addPageLinks(keys){
+	//$(".links").html("<p>First link" + keys[0] + "</p>")
+
+	$(".links").html("<div><a href='?key=" + keys[0] + "'>Previous page</a></div>")
+	$(".links").append("<div><a href='?key=" + keys[1] + "'>Next page</a></div>")
 }
 
 
