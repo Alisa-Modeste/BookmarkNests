@@ -26,12 +26,19 @@ function printBookmarks(){
 	var allTagsLinks = [];
 	var allTagsNames = [];
 	var count =0;
-	store.openCursor().onsuccess = function(event) {
+
+	var key = window.location.search.match(/\d+/) || 0
+	key = parseInt(key)
+
+	// keys greater than key
+	//var lowerBoundOpenKeyRange = IDBKeyRange.lowerBound(key, true);
+	var lowerBoundOpenKeyRange = IDBKeyRange.lowerBound(key);
+	store.openCursor(lowerBoundOpenKeyRange).onsuccess = function(event) {
 		
 		var cursor = event.target.result;
 
 		
-		if (cursor) {
+		if (cursor && count < 50) {
 		
 			vacant = false;
 
