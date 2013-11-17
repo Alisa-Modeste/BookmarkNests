@@ -18,6 +18,8 @@
 
 */
 
+var firstLoad = true;
+
 //display the bookmarks
 function printBookmarks(nextSet){
 	//cursor loop
@@ -27,29 +29,38 @@ function printBookmarks(nextSet){
 	var allTagsNames = [];
 	var count =0;
 
-	var key = window.location.search.match(/\d+/) || 0
-	key = parseInt(key)
+	//var key = window.location.search.match(/\d+/) || 0
+	var keys = getKeys();
+	//key = parseInt(keys[0])
 
 	// keys greater than key
 	//var lowerBoundOpenKeyRange = IDBKeyRange.lowerBound(key, true);
 	//var lowerBoundOpenKeyRange = IDBKeyRange.lowerBound(key);
 
 	if (nextSet){
+		var key = keys[1]
+
 		// keys greater than key
 		var openKeyRange = IDBKeyRange.lowerBound(key, true);
 		var direction = "next";
+		
 	}
 	else {
+		var key = keys[0]
+
 		var openKeyRange = IDBKeyRange.upperBound(key, true);
 		var direction = "prev";
 	}
+
+	$("#container").empty();
 
 	store.openCursor(openKeyRange, direction).onsuccess = function(event) {
 		
 		var cursor = event.target.result;
 
+
 		
-		if (cursor && count < 10) {
+		if (cursor && count < 3) {
 		
 			vacant = false;
 
@@ -64,7 +75,12 @@ function printBookmarks(nextSet){
 			
 			tagString = tagString.join(' ');
 			
-			$("#container").append("<a href='" + cursor.value.url + "' style='display:block; width:100%' class='color-shape item " + tagString + "' id='_" + cursor.key +  "'><p class='name title' style='display:inline; float:left'>" + cursor.value.title + "</p><p style='display:inline; float:left'>&nbsp;&nbsp;&nbsp; </p><p class='name' style='display:inline; float:left; color:gray'> " + cursor.value.url + "</p><p style='display:inline; float:left'>&nbsp;&nbsp; </p> <ul class='myTagsA' style='display:inline; ' id='" + cursor.key + "'></ul></a>");
+			if (nextSet){
+				$("#container").append("<a href='" + cursor.value.url + "' style='display:block; width:100%' class='color-shape item " + tagString + "' id='_" + cursor.key +  "'><p class='name title' style='display:inline; float:left'>" + cursor.value.title + "</p><p style='display:inline; float:left'>&nbsp;&nbsp;&nbsp; </p><p class='name' style='display:inline; float:left; color:gray'> " + cursor.value.url + "</p><p style='display:inline; float:left'>&nbsp;&nbsp; </p> <ul class='myTagsA' style='display:inline; ' id='" + cursor.key + "'></ul></a>");
+			}
+			else {
+				$("#container").prepend("<a href='" + cursor.value.url + "' style='display:block; width:100%' class='color-shape item " + tagString + "' id='_" + cursor.key +  "'><p class='name title' style='display:inline; float:left'>" + cursor.value.title + "</p><p style='display:inline; float:left'>&nbsp;&nbsp;&nbsp; </p><p class='name' style='display:inline; float:left; color:gray'> " + cursor.value.url + "</p><p style='display:inline; float:left'>&nbsp;&nbsp; </p> <ul class='myTagsA' style='display:inline; ' id='" + cursor.key + "'></ul></a>");
+			}
 			
 			for(var i=0;i<cursor.value.tags.length;i++){
 				
@@ -105,28 +121,34 @@ function printBookmarks(nextSet){
 			
 			console.log('I got to the end.');
 			
-			$(".myTagsA").tagitRows(editOff);
-
 			
+			if (firstLoad) {
+				firstLoad = false;
 
-	
-	allTagsNames = uniqueArray(allTagsNames);
-	allTagsLinks = uniqueArray(allTagsLinks);
-	
-	
-	for(var i=0;i<allTagsNames.length;i++){
-	
-		$(".tag_choice .filter").append("<li class='tag'> <a href='#' data-filter-value='." + allTagsLinks[i] + "'>" + allTagsNames[i] +"</a></li>");
-		$(".tags_chosen .filter").append("<li class='tag'> <a href='#' data-filter-value='." + allTagsLinks[i] + "'>" + allTagsNames[i] +"</a></li>");
+				$(".myTagsA").tagitRows(editOff);
 
-	}
-	
-	$(".tag").button();
+				
 
-		appendScript('newManagerFunctionality.js');
+		
+				allTagsNames = uniqueArray(allTagsNames);
+				allTagsLinks = uniqueArray(allTagsLinks);
+				
+				
+				for(var i=0;i<allTagsNames.length;i++){
+				
+					$(".tag_choice .filter").append("<li class='tag'> <a href='#' data-filter-value='." + allTagsLinks[i] + "'>" + allTagsNames[i] +"</a></li>");
+					$(".tags_chosen .filter").append("<li class='tag'> <a href='#' data-filter-value='." + allTagsLinks[i] + "'>" + allTagsNames[i] +"</a></li>");
 
-		var keys = getKeys();
-		addPageLinks(keys);
+				}
+				
+				$(".tag").button();
+
+				appendScript('newManagerFunctionality.js');
+
+			}
+
+			var keys = getKeys();
+			addPageLinks(keys);
 
 		}
 
@@ -136,6 +158,9 @@ function printBookmarks(nextSet){
 }
 
 function getKeys(){
+	if (firstLoad) {
+		return [0,0]
+	}
 	var previousKey = $("#container a:first-child").attr('id').slice(1)
 	var nextKey = $("#container a:last-child").attr('id').slice(1)
 
@@ -145,8 +170,8 @@ function getKeys(){
 function addPageLinks(keys){
 	//$(".links").html("<p>First link" + keys[0] + "</p>")
 
-	$(".links").html("<div><a href='?key=" + keys[0] + "'>Previous page</a></div>")
-	$(".links").append("<div><a href='?key=" + keys[1] + "'>Next page</a></div>")
+	$(".links").html("<div><a href='?key=" + keys[0] + "' id='previous'>Previous page</a></div>")
+	$(".links").append("<div><a href='?key=" + keys[1] + "' id='next'>Next page</a></div>")
 }
 
 

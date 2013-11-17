@@ -603,3 +603,22 @@ function closePopup(){
 $('#close').on('click',function(){
 	closeTab();
 });
+
+
+//update the content
+$(".links").on('click',function(e){
+	e.preventDefault();
+
+	console.log(e.target)
+
+	if(e.target && e.target.nodeName == "A" && e.target.id == "previous") {
+		console.log("Previous")
+		console.log(e.target.id)
+		printBookmarks(false);
+	}
+	else if (e.target && e.target.nodeName == "A" && e.target.id == "next") {
+		console.log("Next")
+		console.log(e.target.id)
+		printBookmarks(true);
+	}
+});
