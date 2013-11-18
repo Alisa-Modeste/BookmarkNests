@@ -626,18 +626,27 @@ $(".links").on('click',function(e){
 //searching
 
 function searchUrl(url){
-	var singleKeyRange = IDBKeyRange.only(url);
+	//var singleKeyRange = IDBKeyRange.only(url);
 
 	var store = dbTransaction(store_name, 'readonly');
 	var index = store.index('url')
 
-	index.openCursor(singleKeyRange).onsuccess = function(event) {
+	var dataSet = [];
+
+	index.openCursor().onsuccess = function(event) {
   		var cursor = event.target.result;
  		if (cursor) {
     
-    		console.log(cursor.key, cursor.value.url)
+    		console.log(cursor.value)
+    		dataSet.push(cursor.value);
+    		//console.log(cursor.key, cursor.value.url)
     
     		cursor.continue();
-  }
-};
+
+    }
+
+    //uu = findInObject(dataSet, {title: "title"}, false)
+
+    //return uu
+  };
 }
