@@ -638,9 +638,14 @@ function searchUrl(url){
  		if (cursor) {
     
     		console.log(cursor.value)
-    		dataSet.push(cursor.value);
+    		//dataSet.push(cursor.value);
     		//console.log(cursor.key, cursor.value.url)
     
+    		var wanted = wantedObject(cursor.value, {title: 'title'});
+
+    		if (wanted) {
+	    		dataSet.push(cursor.value);
+	    	}
     		cursor.continue();
 
     }
@@ -648,5 +653,26 @@ function searchUrl(url){
     //uu = findInObject(dataSet, {title: "title"}, false)
 
     //return uu
+    return dataSet;
   };
+}
+
+//checks to see if object contains the correct title/url and/or tags
+function wantedObject(obj, textNTags){
+	if ( textNTags.text && (object.title + object.url).indexOf(textNTags.text) == -1){
+		return false;
+	}
+
+	if (!textNTags.tags){
+		return true;
+	}
+
+	for (var i = 0; i<textNTags.tags.length; i++){
+		if ( obj.tags.indexOf(textNTags.tags[i]) == -1){
+			return false
+		}
+
+	}
+
+	return true;
 }
