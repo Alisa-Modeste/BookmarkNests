@@ -5,11 +5,12 @@ A bookmark manager with nested tagging.
 
 About
 -----
-This is a Google Chrome extension that is written in Javascript. It uses indexeddb. A screenshot can be viewed here: https://github.com/Alisa-Modeste/BookmarkNests/blob/master/screenshot.md
+This is a Google Chrome extension that is written in Javascript. It uses indexeddb.
 
 Instead of trying to decide which of your folders your bookmark is better suited for, put it in both "folders." BookmarkNests is capable of "dynamic folders." When searching through your bookmarks, click the first tag, or "folder," then pick one of the sub-tags. The installation guide is here: https://github.com/Alisa-Modeste/BookmarkNests/blob/master/INSTALLATION.md
 
 ####The current version is ideal for a smaller number of bookmarks. (i.e closer to 100 than 5000).
+####I'm working on version two [here](https://github.com/Alisa-Modeste/BookmarkNests/tree/using_unique_index):
 
 ##Acknowledgements
 ###Functions
